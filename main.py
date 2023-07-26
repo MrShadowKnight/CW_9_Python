@@ -1,5 +1,61 @@
 import json
 
+try:
+    with open("zoo.json", "r", encoding="utf-8") as file:
+        zoo = json.load(file)
+except Exception as err:
+    print("Для початку програми добавте першу тварину!")
+    name_animal = input("Введіть ім'я тварини: ")
+    breed_animal = input("Введіть породу тварини: ")
+    recomed_food_animal = input("Введіть рекомендовану їжу для тварини: ")
+    type_animal = input("введіть тип тварини: ")
+    frame = {
+        "name": name_animal,
+        "breed": breed_animal,
+        "recomend food": recomed_food_animal,
+        "type": type_animal
+    }
+    with open("zoo.json", "w") as file:
+        json.dump(frame, file)
+
+def addAnimals(name, breed, recomed_food, type):
+    with open("zoo.json", "r", encoding="utf-8") as file:
+        zoo = json.load(file)
+    frame = {
+        "name": name,
+        "breed": breed,
+        "recomend food": recomed_food,
+        "type": type
+    }
+    with open("zoo.json", "w", encoding="utf-8") as file:
+        json.dump(frame, file)
+    
+def scretchAnimal(breed):
+    with open("zoo.json", "r", encoding="utf-8") as file:
+        zoo = json.load(file)
+        if zoo["breed"] == breed:
+            print(zoo["name"])
+            print(zoo["recomend food"])
+            print(zoo["type"])
+        else:
+            print("Такої породи тварин немає!")
+while True:
+    print("Меню:\n 1 --- Додати тварину.\n 2 --- Знайти тварину за породою.\n q --- Вийти зі системи.")
+    ch = input("Виберіть дію: ")
+    if ch == "1":
+        name_animal = input("Введіть ім'я тварини: ")
+        breed_animal = input("Введіть породу тварини: ")
+        recomed_food_animal = input("Введіть рекомендовану їжу для тварини: ")
+        type_animal = input("введіть тип тварини: ")
+        addAnimals(name_animal, breed_animal, recomed_food_animal, type_animal)
+    elif ch == "2":
+        breed = input("Введіть породу тварини: ")
+        scretchAnimal(breed)
+    elif ch.lower() == "q":
+        break
+    else:
+        print("Такої дії немає: ")
+
 # with open("test.json", "r") as file:
 #     accounts = json.load(file)
 
@@ -105,70 +161,3 @@ import json
 #         chois = input("Чи бажаєте продовжити користування(Y | N): ")
 #         if chois.lower() == "n":
 #             active = False
-
-
-
-
-
-
-try:
-    with open("zoo.json", "r", encoding="utf-8") as file:
-        zoo = json.load(file)
-
-except Exception as err:
-    print("Для початку програми добавте першу тварину!")
-    name_animal = input("Введіть ім'я тварини: ")
-    breed_animal = input("Введіть породу тварини: ")
-    recomed_food_animal = input("Введіть рекомендовану їжу для тварини: ")
-    type_animal = input("введіть тип тварини: ")
-    frame = {
-        "name": name_animal,
-        "breed": breed_animal,
-        "recomend food": recomed_food_animal,
-        "type": type_animal
-    }
-    zoo["animals"].append(frame)
-    with open("zoo.json", "r", encoding="utf-8") as file:
-        json.dump(zoo, file)
-
-def addAnimals(name, breed, recomed_food, type):
-    with open("zoo.json", "r", encoding="utf-8") as file:
-        zoo = json.load(file)
-    frame = {
-        "name": name,
-        "breed": breed,
-        "recomend food": recomed_food,
-        "type": type
-    }
-    zoo["animals"].append(frame)
-    with open("zoo.json", "r", encoding="utf-8") as file:
-        json.dump(zoo, file)
-    
-def scretchAnimal(breed):
-    with open("zoo.json", "r", encoding="utf-8") as file:
-        zoo = json.load(file)
-    for item in zoo['animals']:
-        if item["breed"] == breed:
-            print(item["name"])
-            print(item["food"])
-            break
-        elif breed.lower() == "q":
-            break
-        else:
-            print("Такої породи тварин немає!")
-while True:
-    print("Меню:\n 1 --- Додати тварину.\n 2 --- Знайти тварину за породою.\n q --- Вийти зі системи.")
-    ch = input("Виберіть дію: ")
-    if ch == "1":
-        name_animal = input("Введіть ім'я тварини: ")
-        breed_animal = input("Введіть породу тварини: ")
-        recomed_food_animal = input("Введіть рекомендовану їжу для тварини: ")
-        type_animal = input("введіть тип тварини: ")
-        addAnimals(name_animal, breed_animal, recomed_food_animal, type_animal)
-    elif ch == "2":
-        breed = input("Введіть породу тварини(або q для виходу): ")
-        scretchAnimal(breed)
-    elif ch.lower() == "q":
-        break
-    else:
-        print("Такої дії немає: ")
